@@ -1,0 +1,104 @@
+{
+  "model_version": "3.0-ENTERPRISE",
+  "training_date": "2025-10-11T02:27:11.373951",
+  "data_source": "8 Hugging Face datasets + Large-Scale Synthetic (5000 samples)",
+  "model_architecture": "Ensemble (Isolation Forest + Random Forest + One-Class SVM)",
+  "primary_model": "Isolation Forest with 500 trees",
+  "feature_names": [
+    "Hemoglobin",
+    "WBC Count",
+    "RBC Count",
+    "Platelet Count",
+    "Blood Glucose",
+    "HbA1c",
+    "Total Cholesterol",
+    "LDL Cholesterol",
+    "HDL Cholesterol",
+    "Triglycerides",
+    "Creatinine",
+    "Blood Urea",
+    "SGPT (ALT)",
+    "SGOT (AST)",
+    "Bilirubin Total",
+    "Albumin",
+    "TSH",
+    "Vitamin D",
+    "Vitamin B12",
+    "Calcium"
+  ],
+  "n_features": 20,
+  "training_samples": 4000,
+  "test_samples": 1000,
+  "total_data_points": 100000,
+  "performance_metrics": {
+    "accuracy": 0.959,
+    "precision": 0.9163987138263665,
+    "recall": 0.95,
+    "f1_score": 0.9328968903436988,
+    "specificity": 0.9628571428571429,
+    "roc_auc": 0.994195238095238,
+    "average_precision": 0.9896406728336973,
+    "cv_mean_f1": 0.9987543240655274,
+    "cv_std_f1": 0.0016601832060444393
+  },
+  "ensemble_comparison": {
+    "isolation_forest": {
+      "accuracy": 0.959,
+      "f1": 0.9328968903436988
+    },
+    "random_forest": {
+      "accuracy": 0.999,
+      "f1": 0.9983305509181971
+    },
+    "ensemble_vote": {
+      "accuracy": 0.974,
+      "f1": 0.9584664536741214
+    }
+  },
+  "hyperparameters": {
+    "isolation_forest": {
+      "contamination": 0.3,
+      "n_estimators": 500,
+      "max_samples": 512,
+      "max_features": 1.0,
+      "bootstrap": true
+    },
+    "random_forest": {
+      "n_estimators": 300,
+      "max_depth": 15,
+      "min_samples_split": 10,
+      "min_samples_leaf": 5
+    },
+    "one_class_svm": {
+      "kernel": "rbf",
+      "nu": 0.3
+    }
+  },
+  "medical_parameters": [
+    "Hemoglobin",
+    "WBC Count",
+    "RBC Count",
+    "Platelet Count",
+    "Blood Glucose",
+    "HbA1c",
+    "Total Cholesterol",
+    "LDL Cholesterol",
+    "HDL Cholesterol",
+    "Triglycerides",
+    "Creatinine",
+    "Blood Urea",
+    "SGPT (ALT)",
+    "SGOT (AST)",
+    "Bilirubin Total",
+    "Albumin",
+    "TSH",
+    "Vitamin D",
+    "Vitamin B12",
+    "Calcium"
+  ],
+  "gpu_info": {
+    "gpu_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "gpu_memory_gb": 5.99951171875,
+    "gpu_enabled": true
+  }
+}
