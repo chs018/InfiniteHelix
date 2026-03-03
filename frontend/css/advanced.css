@@ -1,0 +1,539 @@
+/* ===================================================================
+   ADVANCED ML FEATURES STYLING
+   Fine-tuned BioBERT, Medication NER, Anomaly Detection, Longitudinal
+   =================================================================== */
+
+/* Advanced Feature Cards */
+.advanced-feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.feature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.feature-header h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.feature-description {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* Entity Recognition */
+.entity-group {
+    margin-bottom: 1.5rem;
+}
+
+.entity-group h4 {
+    font-size: 1.1rem;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+
+.entity-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.entity-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.entity-text {
+    font-weight: 500;
+}
+
+.entity-score {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+/* Medications */
+.medication-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.medication-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.medication-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.medication-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.medication-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.confidence-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.confidence-badge.high {
+    background: #10b981;
+    color: white;
+}
+
+.confidence-badge.medium {
+    background: #f59e0b;
+    color: white;
+}
+
+.confidence-badge.low {
+    background: #ef4444;
+    color: white;
+}
+
+.medication-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.detail-item {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.detail-value {
+    color: #111827;
+}
+
+.medication-context {
+    background: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* Anomaly Detection */
+.anomaly-card {
+    border-left: 4px solid #f59e0b;
+}
+
+.anomaly-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.anomaly-item {
+    background: #fef3c7;
+    border: 1px solid #fbbf24;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.anomaly-item.high {
+    background: #fee2e2;
+    border-color: #f87171;
+}
+
+.anomaly-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.anomaly-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.anomaly-icon {
+    font-size: 1.5rem;
+}
+
+.anomaly-metric {
+    font-weight: 600;
+    color: #111827;
+    flex: 1;
+}
+
+.anomaly-value {
+    font-weight: 700;
+    color: #dc2626;
+}
+
+.anomaly-reason {
+    color: #374151;
+    margin-bottom: 0.5rem;
+    padding-left: 2.25rem;
+}
+
+.anomaly-score {
+    color: #6b7280;
+    font-size: 0.85rem;
+    padding-left: 2.25rem;
+}
+
+.no-anomalies {
+    text-align: center;
+    padding: 2rem;
+    color: #10b981;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Longitudinal Tracking */
+.longitudinal-card {
+    border-left: 4px solid #3b82f6;
+}
+
+.insights-section {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.insights-section h4 {
+    color: #1e40af;
+    margin-bottom: 0.75rem;
+}
+
+.insights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.insights-list li {
+    padding: 0.5rem 0;
+    color: #1e3a8a;
+    font-weight: 500;
+}
+
+.insights-list li:before {
+    content: "• ";
+    color: #3b82f6;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Trends */
+.trends-section {
+    margin-bottom: 1.5rem;
+}
+
+.trends-section h4 {
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+.trends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.trend-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.trend-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+.trend-card.increasing {
+    border-color: #f59e0b;
+}
+
+.trend-card.decreasing {
+    border-color: #3b82f6;
+}
+
+.trend-card.stable {
+    border-color: #10b981;
+}
+
+.trend-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.trend-icon {
+    font-size: 1.5rem;
+}
+
+.trend-name {
+    font-weight: 600;
+    color: #111827;
+}
+
+.trend-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background: #f9fafb;
+    border-radius: 6px;
+}
+
+.value-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.value-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.value-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.trend-change {
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.trend-period {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Predictions */
+.predictions-section {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.predictions-section h4 {
+    color: #166534;
+    margin-bottom: 1rem;
+}
+
+.predictions-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.prediction-card {
+    background: white;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.prediction-metric {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.prediction-values {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.prediction-values .current {
+    color: #6b7280;
+}
+
+.prediction-values .arrow {
+    color: #10b981;
+    font-weight: bold;
+}
+
+.prediction-values .predicted {
+    color: #059669;
+    font-weight: 600;
+}
+
+.prediction-confidence {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Risk Changes */
+.risk-changes-section {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.risk-changes-section h4 {
+    color: #9a3412;
+    margin-bottom: 1rem;
+}
+
+.risk-changes-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.risk-change-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: white;
+    border: 1px solid #fed7aa;
+    border-radius: 6px;
+}
+
+.risk-change-item.danger {
+    border-color: #fca5a5;
+    background: #fef2f2;
+}
+
+.risk-icon {
+    font-size: 1.25rem;
+}
+
+.risk-message {
+    flex: 1;
+    color: #111827;
+}
+
+.risk-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Badges */
+.badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background: #10b981;
+    color: white;
+}
+
+.badge-info {
+    background: #3b82f6;
+    color: white;
+}
+
+.badge-warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.badge-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.badge-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.badge-medium {
+    background: #f59e0b;
+    color: white;
+}
+
+.badge-low {
+    background: #9ca3af;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .advanced-feature-card {
+        padding: 1rem;
+    }
+
+    .trends-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .medication-details {
+        grid-template-columns: 1fr;
+    }
+
+    .entity-list {
+        flex-direction: column;
+    }
+
+    .entity-badge {
+        justify-content: space-between;
+    }
+
+    .prediction-values {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .risk-change-item {
+        flex-wrap: wrap;
+    }
+}

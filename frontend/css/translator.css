@@ -1,0 +1,88 @@
+/* Translation Styles */
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.language-select {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    background: var(--bg-primary);
+    cursor: pointer;
+    min-width: 250px;
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.language-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-left: 1rem;
+}
+
+/* RTL Support */
+.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Translation Controls */
+#languageSelector {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#languageSelector .btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.875rem;
+}
+
+#languageSelector .btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+#languageSelector .btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+}
+
+/* Metric and Insight Cards with Translation Support */
+.metric-card,
+.insight-card {
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.metric-notes,
+.insight-description {
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .language-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .language-select {
+        width: 100%;
+    }
+}

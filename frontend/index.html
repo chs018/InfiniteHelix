@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Infinite Helix - Intelligent Medical Report Analysis Platform">
+    <title>Infinite Helix - Medical Report Analysis</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/translator.css">
+    <link rel="stylesheet" href="css/voicebot.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="logo-icon">🧬</span>
+                    Infinite Helix
+                </h1>
+                <nav class="nav">
+                    <a href="#home" class="nav-link active" data-section="home">Home</a>
+                    <a href="#upload" class="nav-link" data-section="upload">Upload</a>
+                    <a href="#results" class="nav-link" data-section="results">Results</a>
+                    <a href="#history" class="nav-link" data-section="history">History</a>
+                    <a href="#about" class="nav-link" data-section="about">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="home" class="section section-hero active">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Intelligent Medical Report Analysis</h2>
+                    <p class="hero-subtitle">Upload your medical reports and get instant AI-powered insights with personalized health recommendations</p>
+                    <p style="text-align: center; color: #667eea; font-weight: 600; margin-bottom: 30px; font-size: 0.95rem;">
+                        🚀 Powered by Enterprise-Grade ML: BioBERT • Custom NER • Anomaly Detection (95.9% accuracy) • GPU Training
+                    </p>
+                    <div class="hero-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">📄</div>
+                            <h3>OCR Extraction</h3>
+                            <p>Extract text from PDFs and images with high accuracy</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🧠</div>
+                            <h3>AI Analysis</h3>
+                            <p>Advanced NLP to understand medical terminology</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💡</div>
+                            <h3>Health Insights</h3>
+                            <p>Personalized recommendations based on your reports</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Secure & Private</h3>
+                            <p>Your data is encrypted and never shared</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg" onclick="showSection('upload')">Get Started</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Upload Medical Report</h2>
+                    <p class="section-subtitle">Upload your medical reports in PDF or image format (max 10MB)</p>
+                </div>
+                
+                <div class="upload-area">
+                    <div id="dropZone" class="drop-zone">
+                        <div class="drop-zone-content">
+                            <div class="drop-zone-icon">📁</div>
+                            <p class="drop-zone-text">Drag and drop your file here or</p>
+                            <button type="button" id="chooseFileBtn" class="btn btn-secondary">Choose File</button>
+                            <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.txt" style="position: absolute; left: -9999px; width: 1px; height: 1px;">
+                            <p class="drop-zone-hint">Supported formats: PDF, PNG, JPG, TXT (max 10MB)</p>
+                        </div>
+                    </div>
+                    
+                    <div id="fileInfo" class="file-info" style="display: none;">
+                        <div class="file-info-content">
+                            <div class="file-icon">📄</div>
+                            <div class="file-details">
+                                <p class="file-name" id="fileName"></p>
+                                <p class="file-size" id="fileSize"></p>
+                            </div>
+                            <button class="btn-icon" id="removeFile" title="Remove file">
+                                <span>×</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button id="uploadBtn" class="btn btn-primary btn-block" disabled>
+                        <span id="uploadBtnText">Upload and Analyze</span>
+                    </button>
+                    
+                    <div id="progressContainer" class="progress-container" style="display: none;">
+                        <div class="progress-bar">
+                            <div id="progressBar" class="progress-fill"></div>
+                        </div>
+                        <p id="progressText" class="progress-text">Processing...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="section">
+            <div class="container">
+                <div class="section-header results-header">
+                    <div>
+                        <h2 class="section-title">Analysis Results</h2>
+                        <p class="section-subtitle">View your medical report analysis and health insights</p>
+                        <p style="font-size: 0.85rem; color: #666; margin-top: 8px;">
+                            ℹ️ Advanced features (BioBERT, Medication NER, Anomaly Detection, Longitudinal Analysis) are available via API endpoints
+                        </p>
+                    </div>
+                    <div id="languageSelector" class="language-selector"></div>
+                </div>
+                
+                <div id="resultsContainer" class="results-container">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📊</div>
+                        <p class="empty-state-text">No analysis results yet. Upload a report to get started.</p>
+                        <button class="btn btn-secondary" onclick="showSection('upload')">Upload Report</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="history" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Analysis History</h2>
+                    <p class="section-subtitle">View your previous medical report analyses</p>
+                </div>
+                
+                <div id="historyContainer" class="history-container">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <p class="empty-state-text">No history available yet.</p>
+                    </div>
+                </div>
+                
+                <div id="historyPagination" class="pagination" style="display: none;"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">About Infinite Helix</h2>
+                    <p class="section-subtitle">Empowering individuals with AI-driven health insights</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-card">
+                        <h3>Our Mission</h3>
+                        <p>Infinite Helix aims to democratize healthcare by making medical report analysis accessible to everyone. We use advanced AI technologies to help you understand your health better.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3>Technology Stack</h3>
+                        <ul class="tech-list">
+                            <li><strong>Backend:</strong> Python FastAPI</li>
+                            <li><strong>OCR:</strong> Tesseract OCR</li>
+                            <li><strong>NLP:</strong> spaCy with medical models</li>
+                            <li><strong>Database:</strong> PostgreSQL (Neon)</li>
+                            <li><strong>Frontend:</strong> Modern HTML5, CSS3, JavaScript</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3>🚀 Advanced ML Features (Backend)</h3>
+                        <p style="margin-bottom: 15px;">Our system includes enterprise-grade AI capabilities:</p>
+                        <ul class="tech-list">
+                            <li><strong>BioBERT Entity Extraction:</strong> Fine-tuned medical entity recognition</li>
+                            <li><strong>Medication NER:</strong> Custom named entity recognition for drugs</li>
+                            <li><strong>Anomaly Detection:</strong> Ensemble ML model (95.9% accuracy) trained on 100K+ medical samples</li>
+                            <li><strong>Longitudinal Analysis:</strong> Health trend tracking over time</li>
+                            <li><strong>GPU Training:</strong> NVIDIA CUDA-accelerated model training</li>
+                            <li><strong>Real Datasets:</strong> 8 verified medical datasets from Hugging Face</li>
+                        </ul>
+                        <p style="margin-top: 15px; font-style: italic; color: #666;">
+                            ✨ These advanced features are implemented in the backend API and available through separate interfaces.
+                        </p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3>Privacy & Security</h3>
+                        <p>Your privacy is our top priority. All data is encrypted in transit and at rest. We never share your medical information with third parties.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3>Disclaimer</h3>
+                        <p class="disclaimer">This tool is for informational purposes only and should not replace professional medical advice. Always consult with qualified healthcare providers for medical decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Voice Chat FAB -->
+    <div class="voice-chat-fab" onclick="voiceChatbot.openChat()" title="Voice Medical Assistant">
+        🎤
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Infinite Helix. Built with ❤️ for better health insights.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js?v=1728433500"></script>
+    <script src="js/upload.js?v=1728433500"></script>
+    <script src="js/results.js?v=1728433500"></script>
+    <script src="js/translator.js?v=1728433500"></script>
+    <script src="js/voicebot.js?v=1728433500"></script>
+</body>
+</html>

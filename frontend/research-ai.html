@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research-Grade AI Features | Infinite Helix</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/research-ai.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🧬 Infinite Helix</h1>
+                <span class="nav-subtitle">Research-Grade Medical AI</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="advanced.html">Advanced ML</a>
+                <a href="research-ai.html" class="active">Research AI</a>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-content">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="hero-title">🏆 7 Research-Grade AI Features</h1>
+            <p class="hero-subtitle">
+                Hospital-Ready • GPU-Accelerated • Evidence-Based Medicine
+            </p>
+            <div class="capabilities-badges">
+                <span class="badge badge-success" id="gpuBadge">🔄 Checking GPU...</span>
+                <span class="badge badge-info" id="modelsBadge">🔄 Loading Models...</span>
+            </div>
+        </div>
+
+        <!-- Feature Cards Grid -->
+        <div class="features-grid">
+            
+            <!-- 1. Chest X-Ray Analysis -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">🫁</div>
+                    <h3>Chest X-Ray Analysis</h3>
+                    <span class="feature-badge">CNN Model</span>
+                </div>
+                <p class="feature-description">
+                    Deep learning model detects 14 pathologies including pneumonia, cardiomegaly, and pneumothorax using ResNet50 architecture.
+                </p>
+                <button class="btn btn-primary" onclick="openXRayAnalysis()">
+                    <span class="btn-icon">📸</span>
+                    Analyze X-Ray
+                </button>
+            </div>
+
+            <!-- 2. ECG Interpretation -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">❤️</div>
+                    <h3>ECG Interpretation</h3>
+                    <span class="feature-badge">1D CNN</span>
+                </div>
+                <p class="feature-description">
+                    AI-powered ECG analysis detects arrhythmias, MI, and cardiac abnormalities with real-time heart rate calculation.
+                </p>
+                <button class="btn btn-primary" onclick="openECGAnalysis()">
+                    <span class="btn-icon">💓</span>
+                    Interpret ECG
+                </button>
+            </div>
+
+            <!-- 3. Drug Interactions -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">💊</div>
+                    <h3>Drug Interactions</h3>
+                    <span class="feature-badge">ML + Knowledge Base</span>
+                </div>
+                <p class="feature-description">
+                    Comprehensive drug-drug interaction checker with severity ratings and clinical recommendations.
+                </p>
+                <button class="btn btn-primary" onclick="openDrugChecker()">
+                    <span class="btn-icon">🔍</span>
+                    Check Interactions
+                </button>
+            </div>
+
+            <!-- 4. Disease Risk Scoring -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">📊</div>
+                    <h3>Disease Risk Scoring</h3>
+                    <span class="feature-badge">Framingham</span>
+                </div>
+                <p class="feature-description">
+                    Calculate 10-year cardiovascular disease risk using validated Framingham Risk Score algorithm.
+                </p>
+                <button class="btn btn-primary" onclick="openRiskCalculator()">
+                    <span class="btn-icon">📈</span>
+                    Calculate Risk
+                </button>
+            </div>
+
+            <!-- 5. Medical Translation -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Medical Translation</h3>
+                    <span class="feature-badge">9 Languages</span>
+                </div>
+                <p class="feature-description">
+                    Neural machine translation preserving medical terminology accuracy across 9 languages.
+                </p>
+                <button class="btn btn-primary" onclick="openTranslator()">
+                    <span class="btn-icon">🗣️</span>
+                    Translate Text
+                </button>
+            </div>
+
+            <!-- 6. Trend Prediction -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">📈</div>
+                    <h3>Health Trend Prediction</h3>
+                    <span class="feature-badge">LSTM Network</span>
+                </div>
+                <p class="feature-description">
+                    LSTM neural network predicts future health metrics trends based on historical data with attention mechanism.
+                </p>
+                <button class="btn btn-primary" onclick="openTrendPredictor()">
+                    <span class="btn-icon">🔮</span>
+                    Predict Trends
+                </button>
+            </div>
+
+            <!-- 7. Clinical Decision Support -->
+            <div class="feature-card feature-card-highlight">
+                <div class="feature-header">
+                    <div class="feature-icon">🏥</div>
+                    <h3>Clinical Decision Support</h3>
+                    <span class="feature-badge">CDSS</span>
+                </div>
+                <p class="feature-description">
+                    Expert system providing comprehensive patient evaluation, diagnostic suggestions, and evidence-based treatment recommendations.
+                </p>
+                <button class="btn btn-success" onclick="openCDSS()">
+                    <span class="btn-icon">🎯</span>
+                    Evaluate Patient
+                </button>
+            </div>
+
+        </div>
+
+        <!-- System Status Panel -->
+        <div class="status-panel">
+            <h3>🖥️ System Status</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <span class="status-label">Compute Device:</span>
+                    <span class="status-value" id="deviceStatus">Checking...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Models Loaded:</span>
+                    <span class="status-value" id="modelsLoaded">0/7</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">GPU Memory:</span>
+                    <span class="status-value" id="gpuMemory">N/A</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Status:</span>
+                    <span class="status-value status-healthy" id="systemStatus">Operational</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals will be injected here dynamically -->
+    <div id="modalContainer"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/research-ai.js"></script>
+</body>
+</html>

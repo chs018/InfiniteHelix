@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Analysis | Infinite Helix</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f7ff;
+            border: 2px solid #3b82f6;
+            border-radius: 30px;
+            padding: 12px 24px;
+            margin: 20px 0;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .status-badge.gpu {
+            background: #f0fdf4;
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .drop-zone {
+            border: 3px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            margin: 30px 0;
+        }
+
+        .drop-zone:hover {
+            border-color: #667eea;
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .drop-zone.dragover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            transform: scale(1.02);
+        }
+
+        .drop-zone-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .drop-zone h3 {
+            font-size: 1.5rem;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            margin-top: 40px;
+            animation: slideUp 0.5s ease;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-card h3 {
+            color: #1e293b;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #475569;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .result-value {
+            color: #1e293b;
+            font-size: 1.05rem;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .risk-low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .risk-moderate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .risk-high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .risk-critical {
+            background: #fecaca;
+            color: #7f1d1d;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .recommendations {
+            list-style: none;
+        }
+
+        .recommendations li {
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .confidence-bar {
+            background: #e2e8f0;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .confidence-fill {
+            background: linear-gradient(90deg, #22c55e 0%, #10b981 100%);
+            height: 100%;
+            transition: width 1s ease;
+        }
+
+        .entity-tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin: 4px;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>🧬 Infinite Helix AI</h1>
+                <p>Enterprise-Grade Medical Intelligence</p>
+                
+                <div style="margin-top: 20px;">
+                    <span class="status-badge" id="modelStatus">
+                        🔄 Loading AI...
+                    </span>
+                    <span class="status-badge gpu" id="gpuStatus">
+                        🔄 Checking GPU...
+                    </span>
+                </div>
+            </div>
+
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-zone-icon">📄</div>
+                <h3>Drag & Drop Medical Report</h3>
+                <p>or click to browse files</p>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #94a3b8;">
+                    Supports: PDF, JPG, PNG
+                </p>
+            </div>
+
+            <input type="file" id="fileInput" class="file-input" accept=".pdf,.jpg,.jpeg,.png" />
+
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="btn" id="analyzeBtn" disabled>
+                    <span>🧠</span>
+                    Analyze with AI
+                </button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <h3>AI is analyzing your report...</h3>
+                <p style="color: #666; margin-top: 10px;">This may take a few seconds</p>
+            </div>
+
+            <div class="results" id="results">
+                <!-- Results will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        let currentFileId = null;
+
+        // Check authentication
+        if (!localStorage.getItem('token')) {
+            window.location.href = 'auth.html';
+        }
+
+        // Load AI status
+        async function loadAIStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/ai/status`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const info = data.system;
+                    document.getElementById('modelStatus').innerHTML = `
+                        ✅ Model v${info.model_version} | ${(info.accuracy * 100).toFixed(1)}% Accuracy
+                    `;
+                    document.getElementById('gpuStatus').innerHTML = `
+                        ${info.gpu_enabled ? '⚡ GPU' : '💻 CPU'} | ${info.training_samples.toLocaleString()} Samples
+                    `;
+                }
+            } catch (error) {
+                console.error('Status check failed:', error);
+            }
+        }
+
+        // Drag and drop
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        async function handleFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                dropZone.innerHTML = '<div class="spinner"></div><p>Uploading...</p>';
+                
+                const response = await fetch(`${API_BASE}/upload`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentFileId = data.file_id;
+                    dropZone.innerHTML = `
+                        <div class="drop-zone-icon">✅</div>
+                        <h3>File Uploaded Successfully</h3>
+                        <p>${file.name}</p>
+                    `;
+                    document.getElementById('analyzeBtn').disabled = false;
+                } else {
+                    throw new Error(data.detail || 'Upload failed');
+                }
+            } catch (error) {
+                alert('Upload failed: ' + error.message);
+                resetDropZone();
+            }
+        }
+
+        function resetDropZone() {
+            dropZone.innerHTML = `
+                <div class="drop-zone-icon">📄</div>
+                <h3>Drag & Drop Medical Report</h3>
+                <p>or click to browse files</p>
+            `;
+        }
+
+        // Analyze
+        document.getElementById('analyzeBtn').addEventListener('click', analyzeReport);
+
+        async function analyzeReport() {
+            if (!currentFileId) return;
+
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('analyzeBtn').disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/ai/analyze/${currentFileId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayResults(data.results);
+                } else {
+                    throw new Error(data.detail || 'Analysis failed');
+                }
+            } catch (error) {
+                alert('Analysis failed: ' + error.message);
+            } finally {
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('analyzeBtn').disabled = false;
+            }
+        }
+
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+            
+            const riskClass = results.risk_assessment.risk_level.toLowerCase().replace(' ', '-');
+            
+            let html = `
+                <h2 style="margin-bottom: 30px; color: #1e293b;">📊 AI Analysis Results</h2>
+                
+                <div class="result-card">
+                    <h3>⚠️ Risk Assessment</h3>
+                    <div class="result-item">
+                        <span class="result-label">Risk Level:</span>
+                        <span class="risk-badge risk-${riskClass}">${results.risk_assessment.risk_level}</span>
+                        <div style="margin-top: 12px;">
+                            <span class="result-label">Risk Score: ${results.risk_assessment.risk_score}/10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h3>🔬 Medical Entities Found</h3>
+                    <div class="result-item">
+                        ${results.entities_found.length > 0 ? 
+                            results.entities_found.map(e => `
+                                <span class="entity-tag">${e.text} (${(e.confidence * 100).toFixed(0)}%)</span>
+                            `).join('') :
+                            '<p style="color: #64748b;">No specific medical entities detected</p>'
+                        }
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <h3>💊 Medications Detected</h3>
+                    <div class="result-item">
+                        ${results.medications_detected.length > 0 ?
+                            results.medications_detected.map(med => `<span class="entity-tag">${med}</span>`).join('') :
+                            '<p style="color: #64748b;">No medications detected</p>'
+                        }
+                    </div>
+                </div>
+
+                ${results.drug_interactions ? `
+                    <div class="result-card" style="border-left-color: #ef4444;">
+                        <h3>⚠️ Drug Interactions</h3>
+                        <div class="result-item">
+                            <span class="risk-badge risk-${results.drug_interactions.risk_level.toLowerCase()}">
+                                ${results.drug_interactions.risk_level} Risk
+                            </span>
+                            <p style="margin-top: 12px; font-weight: 600;">
+                                ${results.drug_interactions.interactions_found} interaction(s) found
+                            </p>
+                        </div>
+                    </div>
+                ` : ''}
+
+                ${results.lab_anomalies ? `
+                    <div class="result-card">
+                        <h3>🧪 Lab Analysis</h3>
+                        <div class="result-item">
+                            <span class="result-label">Status:</span>
+                            <span class="result-value">
+                                ${results.lab_anomalies.is_anomalous ? 
+                                    '⚠️ Anomalies Detected' : 
+                                    '✅ Normal Range'}
+                            </span>
+                            <div style="margin-top: 12px;">
+                                <span class="result-label">Confidence:</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: ${results.lab_anomalies.confidence * 100}%"></div>
+                                </div>
+                                <span style="font-size: 0.9rem; color: #64748b;">
+                                    ${(results.lab_anomalies.confidence * 100).toFixed(1)}% confident
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                ` : ''}
+
+                <div class="result-card">
+                    <h3>💡 Clinical Recommendations</h3>
+                    <ul class="recommendations">
+                        ${results.clinical_recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="result-card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                    <h3>📋 Summary</h3>
+                    <div class="result-item">
+                        <p style="font-size: 1.05rem; line-height: 1.6;">${results.report_summary}</p>
+                        <div style="margin-top: 16px;">
+                            <span class="result-label">Overall Confidence:</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: ${results.confidence_score * 100}%"></div>
+                            </div>
+                            <span style="font-size: 0.9rem; color: #64748b;">
+                                ${(results.confidence_score * 100).toFixed(1)}% confident in analysis
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            resultsDiv.innerHTML = html;
+            resultsDiv.classList.add('show');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'auth.html';
+        }
+
+        // Initialize
+        loadAIStatus();
+    </script>
+</body>
+</html>
